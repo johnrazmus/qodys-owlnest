@@ -1,0 +1,15 @@
+table.wp-list-table {
+	table-layout:auto !important;
+}
+.manage-column {
+	width:auto;
+}
+.widefat td {
+	width:auto;
+}
+.wp-list-table tr {
+	height:auto;
+}
+.widefat tbody th.check-column {
+	padding: 6px 0 3px;
+}

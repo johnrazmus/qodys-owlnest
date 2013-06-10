@@ -1,0 +1,10 @@
+.qody_only_area .tablenav .pagination ul > li > a, 
+.qody_only_area .tablenav .pagination ul > li > span {
+	padding: 0 10px;
+	line-height: 28px;
+	font-size:12px;
+	margin-right:0px;
+}
+.qody_only_area .tablenav .pagination {
+	margin: 0px;
+}

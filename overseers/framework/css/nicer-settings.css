@@ -1,0 +1,17 @@
+.qody_only_area .well {
+	padding-bottom:0px;
+}
+.qody_only_area fieldset {
+	width:98%;
+}
+.qody_only_area .control-label {
+	font-weight:bold;
+	font-size:13px;
+}
+.qody_only_area .control-label.flat {
+	font-weight:normal;
+}
+.qody_only_area .help-block {
+	font-size:12px;	
+	margin-top:0px !important;
+}

@@ -1,0 +1,119 @@
+.widefat,
+.qody_only_area table.widefat {
+	/*margin-bottom: 0px !important;*/
+	border-collapse: separate;
+}
+
+th.check-column {
+	text-align:center;
+}
+
+th.check-column input[type="checkbox"] {
+	margin:0px;
+}
+
+.page-header div.error.fade {
+	display:none;
+}
+
+.owl_sidebar {
+	margin: 0px auto;
+	display:block;
+	position: relative;
+	z-index:9999;
+}
+.sub_setting_label {
+	margin-left:15px;
+}
+
+.form-table th .sub_setting_label {
+	font-weight:normal;
+}
+
+fieldset legend,
+.qody_only_area fieldset legend {
+	/*margin-bottom:0px;*/
+}
+
+.qody_only_area {
+	background-color:transparent !important;
+}
+
+.wrap.qody_only_area {
+	margin: 4px 15px 0 0;
+}
+
+/* fixes bootstrap input height issue */
+.controls input,
+.qody_only_area input {
+	-moz-box-sizing:inherit;
+	-webkit-box-sizing:inherit;
+	-ms-box-sizing:inherit;
+	box-sizing:inherit;
+}
+
+.row-fluid input,
+.qody_only_area .row-fluid input {
+	-moz-box-sizing:border-box;
+	-webkit-box-sizing:border-box;
+	-ms-box-sizing:border-box;
+	box-sizing:border-box;
+}
+
+.controls .checkbox,
+.qody_only_area .checkbox {
+	background-color:transparent;
+}
+
+.subsubsub {
+	margin-top:0px;
+}
+
+.wrap .page-header {
+	margin-bottom:10px;
+	padding-bottom:10px;
+}
+
+code {
+	line-height:22px;
+}
+
+#adminmenu .wp-submenu ul {
+	margin-left:0px;
+}
+
+body.wp-admin {
+	background-color:transparent;	
+}
+
+.mini_stats_table tbody th {
+	width:35%;
+}
+
+.qody_only_area .tablenav {
+	line-height:30px;
+	margin:6px 0px;
+}
+	.qody_only_area .tablenav .btn-toolbar {
+		margin:0px 0px 0px 15px;
+	}
+	
+.qody_only_area .subsubsub {
+	margin:0px 0px 5px 0px;
+}
+
+.qody_only_area div.page-header {
+	margin-bottom:0px;
+}
+
+
+
+
+
+
+
+
+
+
+
+	
