@@ -9,6 +9,7 @@ class QodyPage extends QodyOwnable
 	var $m_icon_url 		= '';
 	var $m_menu_position	= null;
 	var $m_page_hook		= '';
+	var $m_metabox_close_exceptions = array();
 	
 	var $m_data_type = '';
 	
@@ -124,6 +125,33 @@ class QodyPage extends QodyOwnable
 	function SetDataType( $slug )
 	{
 		$this->m_data_type = $slug;
+	}
+	
+	function CloseThisMetaBox( $closed )
+	{
+		$data = $this->GetAssets( 'metaboxes' );
+		
+		if( !$data )
+			return;
+		
+		$fields = array();
+		
+		foreach( $data as $key => $value )
+		{
+			if( $this->m_metabox_close_exceptions && in_array( $this->GetPre().'-'.$key, $this->m_metabox_close_exceptions ) )
+				continue;
+			
+			$fields[] = $this->GetPre().'-'.$key;
+		}
+		
+		return $fields;
+	}
+	
+	function StartMetaboxesClosed( $exceptions = array() )
+	{
+		$this->m_metabox_close_exceptions = $exceptions;
+		
+		add_filter( 'get_user_option_closedpostboxes_'.$this->m_page_hook, array( $this, 'CloseThisMetaBox' ) );
 	}
 	
 	function GetPerPage()
