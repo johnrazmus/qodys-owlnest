@@ -3,7 +3,7 @@
  * Plugin Name: Qody's Owl Nest
  * Plugin URI: http://qody.co
  * Description: Framework required for all plugins managed by Qody's owls.
- * Version: 3.9.2
+ * Version: 3.9.3
  * Author: Qody LLC
  * Author URI: http://qody.co
  *
