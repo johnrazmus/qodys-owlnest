@@ -168,6 +168,9 @@ class QodyOverseer extends QodyOwnable
 	{
 		$data = $this->get_option( 'license_data' );
 		
+		if( !$data )
+			return false;
+			
 		return $data['status'] == 'good' ? true : false;
 	}
 	

@@ -42,7 +42,7 @@ $plugin_variable_name = str_replace( '-', '_', $this->Overseer()->Owner()->m_plu
 								
 								<div class="row-fluid">
 									<div class="span3">
-										<img src="https://qody.s3.amazonaws.com/owls/qody/qody.png" />
+										<img src="<?php echo $this->GetAsset( 'images', 'logo', 'url' ); ?>" />
 									</div>
 									<div class="span6">
 										
@@ -74,10 +74,10 @@ $plugin_variable_name = str_replace( '-', '_', $this->Overseer()->Owner()->m_plu
 										<div style="padding-bottom:10px; font-size:14px;">
 											<p>Before you can use any of Qody's plugins or features, you must enter your unique O.I.N key. This 
 											can be found on your O.I.N key management page 
-											<a target="_blank" href="http://qody.co/my-owls/oin-keys/">here in your dashboard.</a></p>
+											<a target="_blank" href="http://my.qody.co/oin-keys/">here in your dashboard.</a></p>
 											
-											<p>If you're not yet a member of Qody's Nexus, 
-											<a target="_blank" href="http://qody.co/owl/nexus-membership">learn about why it's awesome here.</a></p>
+											<p>If you're not yet a Qody Member, 
+											<a target="_blank" href="http://qody.co/plugins/membership.php">check it out here.</a></p>
 										</div>
 										
 										<label class="control-label" for="">O.I.N Key</label><br>

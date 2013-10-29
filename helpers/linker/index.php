@@ -105,7 +105,7 @@ class qodyHelper_FrameworkSystemLinker extends QodyHelper
 			$fields['url'] = urlencode( get_bloginfo('url') );
 		}
 		
-		$url = "http://nexus.qody.co/wp-content/plugins/qodys-licensor/overseers/licensor/api/verify.php?".http_build_query( $fields );
+		$url = "http://my.qody.co/wp-content/plugins/qodys-licensor/overseers/licensor/api/verify.php?".http_build_query( $fields );
 		
 		$response = $this->GetOutsideLinkContent( $url );
 		
@@ -115,32 +115,6 @@ class qodyHelper_FrameworkSystemLinker extends QodyHelper
 		$data = $this->DecodeResponse( $response );
 		
 		return $data;
-	}
-	
-	function SendCommand( $fields )
-	{
-		// echo "key: ".$this->get_option('api_key');
-		// ItemDebug($fields);
-		// die();
-		if( !$fields['api'] )
-			$fields['api'] = $this->get_option( 'api_key' );
-		
-		if( !$fields['domain'] )
-			$fields['domain'] = get_bloginfo('url');
-			
-		if( !$fields['product_id'] )
-			$fields['product_id'] = $this->GetProductID( $fields['prefix'] );
-		
-		$hash = urlencode( base64_encode( serialize( $fields ) ) );
-		
-		$url = "http://plugins.qody.co/connector/?hash=".$hash;
-		//$this->ItemDebug( $url );exit;
-		$response = $this->GetOutsideLinkContent( $url );
-		
-		if( !$response )
-			$response = file_get_contents( $url );
-		
-		return $response;
 	}
 }
 ?>
