@@ -299,6 +299,16 @@ class QodyRawType extends QodyOwnable
 		return $post_id ? $post_id : $resulting_post_id;
 	}
 	
+	function Update( $post_data, $post_id = '' )
+	{
+		return $this->SavePost( $post_data, $post_id = '' );
+	}
+	
+	function Insert( $fields = array() )
+	{
+		return $this->wp_insert_post( $fields );
+	}
+	
 	// *****************************************************************
 	// wordpress function look-a-likes
 	// *****************************************************************
