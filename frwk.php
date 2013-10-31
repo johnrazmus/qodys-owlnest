@@ -70,6 +70,8 @@ if( $too_low )
 	// these trick the plugins into working until the framework is updated
 	if( !class_exists('QodyPlugin') )	{class QodyPlugin{function __construct(){}public function __call($name, $arguments){}}}
 	if( !class_exists('QodyPostType') )	{class QodyPostType{function __construct(){}public function __call($name, $arguments){}}}
+	if( !class_exists('QodyDataType') )	{class QodyDataType{function __construct(){}public function __call($name, $arguments){}}}
+	if( !class_exists('QodyRawType') )	{class QodyRawType{function __construct(){}public function __call($name, $arguments){}}}
 	if( !class_exists('QodyPage') )		{class QodyPage{function __construct(){}public function __call($name, $arguments){}}}
 	if( !class_exists('QodyOverseer') )	{class QodyOverseer{function __construct(){}public function __call($name, $arguments){}}}
 	if( !class_exists('QodyHelper') )	{class QodyHelper{function __construct(){}public function __call($name, $arguments){}}}
@@ -368,6 +370,10 @@ if( !class_exists('QodyPlugin') )
 		{
 			$this->PerformDynamicLoad( 'data_type' );
 		}
+		function LoadRawTypes()
+		{
+			$this->PerformDynamicLoad( 'raw_type' );
+		}
 		
 		function LoadHelpers()
 		{
@@ -488,6 +494,10 @@ if( !class_exists('QodyPlugin') )
 				case 'data_type':
 					$container_slug = 'datatypes';
 					$class_prefix = 'datatype';
+					break;
+				case 'raw_type':
+					$container_slug = 'rawtypes';
+					$class_prefix = 'rawtype';
 					break;
 				case 'controller':
 					$container_slug = 'content-controllers';
@@ -768,7 +778,19 @@ if( !class_exists('QodyPlugin') )
 			if( $this->FW()->GetClass( 'datatype_'.$slug ) )
 				return $this->FW()->GetClass( 'datatype_'.$slug );
 			
-			$this->Log( "function PostType( $slug ) failed to retreive datatype_".$slug, 'error' );
+			$this->Log( "function DataType( $slug ) failed to retreive datatype_".$slug, 'error' );
+			//return $this; // should be null, but this triggers empty function handler
+		}
+		
+		function RawType( $slug )
+		{
+			if( $this->GetClass( 'rawtype_'.$slug ) )
+				return $this->GetClass( 'rawtype_'.$slug );
+			
+			if( $this->FW()->GetClass( 'rawtype_'.$slug ) )
+				return $this->FW()->GetClass( 'rawtype_'.$slug );
+			
+			$this->Log( "function RawType( $slug ) failed to retreive rawtype_".$slug, 'error' );
 			//return $this; // should be null, but this triggers empty function handler
 		}
 		
@@ -1293,6 +1315,7 @@ if( !class_exists('QodyPlugin') )
 				// set the owner
 				if( strpos( $class_name, 'qodyPosttype' ) !== false || 
 					strpos( $class_name, 'qodyDatatype' ) !== false || 
+					strpos( $class_name, 'qodyRawtype' ) !== false || 
 					strpos( $class_name, 'qodyPage' ) !== false || 
 					strpos( $class_name, 'qodyController' ) !== false || 
 					strpos( $class_name, 'qodyOverseer' ) !== false || 
@@ -1342,6 +1365,7 @@ if( !class_exists('QodyPlugin') )
 			$this->LoadOverseers();
 			$this->LoadPostTypes();
 			$this->LoadDataTypes();
+			$this->LoadRawTypes();
 			$this->LoadAdminPages();
 			$this->LoadContentControllers();
 			$this->LoadWidgets();
@@ -1593,6 +1617,7 @@ if( !class_exists('QodyPlugin') )
 	require_once( dirname(__FILE__).'/classes/Overseer.php' );
 	require_once( dirname(__FILE__).'/classes/PostType.php' );
 	require_once( dirname(__FILE__).'/classes/DataType.php' );
+	require_once( dirname(__FILE__).'/classes/RawType.php' );
 	require_once( dirname(__FILE__).'/classes/Page.php' );
 	require_once( dirname(__FILE__).'/classes/Helper.php' );
 	require_once( dirname(__FILE__).'/classes/ContentController.php' );

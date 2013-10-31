@@ -1,7 +1,7 @@
 <?php
 class QodyRawType extends QodyOwnable
 {
-	var $m_post_table = '';
+	var $m_table_slug = '';
 	var $m_table_design = '';
 	
 	function __construct()
@@ -15,16 +15,16 @@ class QodyRawType extends QodyOwnable
 	{
 		global $rawtype_table_checks;
 		
-		if( !isset( $rawtype_table_checks[ $this->m_post_table ] ) )
+		if( !isset( $rawtype_table_checks[ $this->m_table_slug ] ) )
 		{
-			if( !$this->Helper('db')->TableExists( $this->m_post_table, $this ) )
+			if( !$this->Helper('db')->TableExists( $this->m_table_slug, $this ) )
 			{
-				$this->Log( "rawtypes: creating ".$this->m_post_table." table because it doesn't exist", 'success' );
+				$this->Log( "rawtypes: creating ".$this->m_table_slug." table because it doesn't exist", 'success' );
 				
 				$this->CreateTable();
 			}
 			
-			$rawtype_table_checks[ $this->m_post_table ] = true;
+			$rawtype_table_checks[ $this->m_table_slug ] = true;
 		}
 	}
 	
@@ -55,7 +55,7 @@ class QodyRawType extends QodyOwnable
 		
 		$append = "ENGINE=MyISAM DEFAULT CHARSET=utf8 AUTO_INCREMENT=1 ;";
 		
-		$this->Helper('db')->CreateTable( $this->m_post_table, $table_design, $append, $this );
+		$this->Helper('db')->CreateTable( $this->m_table_slug, $table_design, $append, $this );
 	}
 	
 	// *****************************************************************
@@ -68,7 +68,7 @@ class QodyRawType extends QodyOwnable
 		if( !$query )
 			$query = "ORDER BY date DESC";
 		
-		$data = $this->Helper('db')->Select( $this->m_post_table, $query, $this, '', OBJECT );
+		$data = $this->Helper('db')->Select( $this->m_table_slug, $query, $this, '', OBJECT );
 		
 		return $data;
 	}
@@ -77,7 +77,7 @@ class QodyRawType extends QodyOwnable
 	{
 		global $wpdb;
 		
-		$post_table = $this->Helper('db')->FixTableName( $this->m_post_table, $this );
+		$post_table = $this->Helper('db')->FixTableName( $this->m_table_slug, $this );
 		
 		$data = $wpdb->get_var( "SELECT COUNT(*) FROM $post_table" );
 		
@@ -93,7 +93,7 @@ class QodyRawType extends QodyOwnable
 		// ************************************************************************
 		$this->MakeTableIfItDoesntExist();
 		
-		$post_table = $this->Helper('db')->FixTableName( $this->m_post_table, $this );
+		$post_table = $this->Helper('db')->FixTableName( $this->m_table_slug, $this );
 		
 		// ************************************************************************
 		// Process the query to get some posts
@@ -239,7 +239,7 @@ class QodyRawType extends QodyOwnable
 		
 		$this->MakeTableIfItDoesntExist();
 		
-		$post_table = $this->Helper('db')->FixTableName( $this->m_post_table, $this );
+		$post_table = $this->Helper('db')->FixTableName( $this->m_table_slug, $this );
 		
 		$bits = explode( ',', $fields_to_get );
 		foreach( $bits as $key => $value )
@@ -312,20 +312,20 @@ class QodyRawType extends QodyOwnable
 			if( !$fields['date'] )
 				$fields['date'] = $this->time();
 			
-			$this->Helper('db')->InsertToDatabase( $fields, $this->m_post_table, $this );
+			$this->Helper('db')->InsertToDatabase( $fields, $this->m_table_slug, $this );
 			
-			$table_name = $this->Helper('db')->FixTableName( $this->m_post_table, $this );
+			$table_name = $this->Helper('db')->FixTableName( $this->m_table_slug, $this );
 			
 			$query = mysql_query( "SELECT id FROM ".$table_name." ORDER BY id DESC LIMIT 0,1" );
 			$data = mysql_fetch_array( $query );
 			
 			// get last created item to return as post_id
-			//$data = $this->Helper('db')->Select( $this->m_post_table, "ORDER BY ID DESC", $this, '', ARRAY_A, 'ID' );
+			//$data = $this->Helper('db')->Select( $this->m_table_slug, "ORDER BY ID DESC", $this, '', ARRAY_A, 'ID' );
 			$post_id = $data['id'];
 		}
 		else
 		{
-			$this->Helper('db')->UpdateDatabase( $fields, $this->m_post_table, $fields['id'], 'id', $this );
+			$this->Helper('db')->UpdateDatabase( $fields, $this->m_table_slug, $fields['id'], 'id', $this );
 			$post_id = $fields['id'];
 		}
 		
@@ -345,7 +345,7 @@ class QodyRawType extends QodyOwnable
 		}
 		else
 		{		
-			$this->Helper('db')->DeleteFromDatabase( $this->m_post_table, 'id', $post_id, $this );
+			$this->Helper('db')->DeleteFromDatabase( $this->m_table_slug, 'id', $post_id, $this );
 		}
 		
 		$this->clean_post_cache( $post_id );
@@ -358,7 +358,7 @@ class QodyRawType extends QodyOwnable
 		if( !$data = $this->wp_cache_get( $post_id ) )
 		{
 			$query = "id = $post_id";
-			$data = $this->Helper('db')->Select( $this->m_post_table, $query, $this, '', OBJECT );
+			$data = $this->Helper('db')->Select( $this->m_table_slug, $query, $this, '', OBJECT );
 			
 			if( !$data )
 				return;
@@ -442,9 +442,9 @@ class QodyRawType extends QodyOwnable
 	function _prime_post_caches( $ids, $update_term_cache = true ) {
 		global $wpdb;
 	
-		$table = $this->Helper('db')->FixTableName( $this->m_post_table, $this );
+		$table = $this->Helper('db')->FixTableName( $this->m_table_slug, $this );
 	
-		$non_cached_ids = _get_non_cached_ids( $ids, $this->m_post_table );
+		$non_cached_ids = _get_non_cached_ids( $ids, $this->m_table_slug );
 		
 		//ItemDebug( $non_cached_ids );
 		if ( !empty( $non_cached_ids ) ) {
@@ -476,7 +476,7 @@ class QodyRawType extends QodyOwnable
 	function clean_post_cache( $post_id ) {
 		global $wpdb;
 	
-		wp_cache_delete( $post_id, $this->m_post_table );
+		wp_cache_delete( $post_id, $this->m_table_slug );
 	// continue here;
 		//clean_object_term_cache( $post_id, $post->post_type );
 	
@@ -496,14 +496,14 @@ class QodyRawType extends QodyOwnable
 	
 	function wp_cache_get( $post_id )
 	{
-		$data = wp_cache_get($post_id, $this->m_post_table);
+		$data = wp_cache_get($post_id, $this->m_table_slug);
 		
 		return $data;
 	}
 	
 	function wp_cache_add( $post_id, $data )
 	{
-		wp_cache_set( $post_id, $data, $this->m_post_table );
+		wp_cache_set( $post_id, $data, $this->m_table_slug );
 	}
 	
 	
