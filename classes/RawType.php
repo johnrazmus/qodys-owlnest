@@ -299,6 +299,22 @@ class QodyRawType extends QodyOwnable
 		return $post_id ? $post_id : $resulting_post_id;
 	}
 	
+	function GetResults( $select = '*', $where = '' )
+	{
+		global $wpdb;
+		
+		// continue here
+		$data = $wpdb->get_results( "SELECT $select FROM ".$wpdb->prefix.$this->m_table_slug." ".($where ? "WHERE ".$where : '') );
+		
+		if( $data[0] )
+		{
+			if( $selection != '*' )
+				return $data[0]->$selection;
+			
+			return $data[0];
+		}
+	}
+	
 	function Update( $post_data, $post_id = '' )
 	{
 		return $this->SavePost( $post_data, $post_id = '' );
