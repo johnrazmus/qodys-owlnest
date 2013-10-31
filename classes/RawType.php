@@ -48,6 +48,11 @@ class QodyRawType extends QodyOwnable
 		return $fields;*/
 	}
 	
+	function GetRealTableName()
+	{
+		return $this->Helper('db')->FixTableName( $this->m_table_slug, $this );
+	}
+	
 	function CreateTable()
 	{
 		// array of columns
@@ -304,15 +309,11 @@ class QodyRawType extends QodyOwnable
 		global $wpdb;
 		
 		// continue here
-		$data = $wpdb->get_results( "SELECT $select FROM ".$wpdb->prefix.$this->m_table_slug." ".($where ? "WHERE ".$where : '') );
+		$table_name = $this->GetRealTableName();
 		
-		if( $data[0] )
-		{
-			if( $selection != '*' )
-				return $data[0]->$selection;
-			
-			return $data[0];
-		}
+		$data = $wpdb->get_results( "SELECT $select FROM ".$table_name." ".($where ? "WHERE ".$where : '') );
+		
+		return $data;
 	}
 	
 	function Update( $post_data, $post_id = '' )
