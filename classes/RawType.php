@@ -318,7 +318,7 @@ class QodyRawType extends QodyOwnable
 	
 	function Update( $post_data, $post_id = '' )
 	{
-		return $this->SavePost( $post_data, $post_id = '' );
+		return $this->SavePost( $post_data, $post_id );
 	}
 	
 	function Insert( $fields = array() )
