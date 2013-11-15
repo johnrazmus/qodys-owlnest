@@ -143,11 +143,12 @@ class qodyHelper_FrameworkDatabase extends QodyHelper
 		$wpdb->query( "DELETE FROM ".$table_name." WHERE {$field} = '{$value}'" );
 	}
 	
-	function UpdateDatabase( $fields, $table_name, $id, $option = 'id', $caller = null )
+	function UpdateDatabase( $fields, $table_name, $id, $option = 'id', $caller = null, $use_prefix = true )
 	{
 		global $wpdb;
 		
-		$table_name = $this->FixTableName( $table_name, $caller );
+		if( $use_prefix )			
+			$table_name = $this->FixTableName( $table_name, $caller );
 		
 		$first = '';
 		$looper = 0;
@@ -165,7 +166,7 @@ class qodyHelper_FrameworkDatabase extends QodyHelper
 		$wpdb->query( "UPDATE ".$table_name." SET ".$first." WHERE {$option} = '".$wpdb->escape( $id )."'" );
 	}
 	
-	function InsertToDatabase( $fields, $table_name, $caller = null, $use_prefix = true )
+	function InsertToDatabase( $fields, $table_name, $caller = null, $use_prefix = true, $return_id_of_insert = false )
 	{
 		global $wpdb;
 		
@@ -211,6 +212,14 @@ class qodyHelper_FrameworkDatabase extends QodyHelper
 		}
 		
 		$wpdb->query( "INSERT INTO ".$table_name." (".$first.") VALUES (".$second.")" );
+		
+		if( $return_id_of_insert )
+		{
+			$query = "SELECT id FROM $table_name ORDER BY id DESC LIMIT 0,1";
+			$results = $wpdb->get_results( $query, ARRAY_A);
+			
+			return $results[0];
+		}
 	}
 
 }
