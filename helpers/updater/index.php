@@ -23,7 +23,7 @@ if( !class_exists('qodyHelper_UpdaterObject') )
 	class qodyHelper_UpdaterObject
 	{
 		public $current_version;
-		public $update_path = 'http://qody.co/api/';
+		public $update_path = 'http://razmus.net/api/';
 		public $plugin_slug;
 		public $slug;
 		public $m_owner;
