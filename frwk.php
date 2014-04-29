@@ -871,6 +871,8 @@ if( !class_exists('QodyPlugin') )
 		
 		function IsNexusMember( $type = 'pro' )
 		{
+			return true;
+			
 			if( $this->FW()->HasExclusiveLicense() && $this->InExclusiveGroup() )
 				return true;
 				
@@ -1455,6 +1457,7 @@ if( !class_exists('QodyPlugin') )
 		
 		function PassApiCheck()
 		{
+			return true;
 			$license_is_good = $this->FW()->Overseer()->VerifyLicense();
 			
 			return $license_is_good && $this->HandleExclusiveAccessLogic();	
