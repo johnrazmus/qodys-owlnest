@@ -27,7 +27,7 @@ require_once(ABSPATH . 'wp-admin/includes/plugin.php');
 $too_low = false;
 
 $fields = array();
-$fields['qodys-redirector'] = '4.1.1';
+$fields['qodys-redirector'] = '5.0.0';
 $fields['qodys-optiner'] = '4.2.2';
 $fields['qodys-fb-meta'] = '3.0.7';
 $fields['qodys-buttoner'] = '2.0.6';
